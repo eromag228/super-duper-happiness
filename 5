@@ -1,0 +1,50 @@
+def moderator(text):
+    """
+    Проверка сообщения на наличие запрещенных слов и длины.
+    """
+    # Проверка на пустое сообщение
+    if not text:
+        return False
+    
+    # Исправлено: приведение к нижнему регистру для регистронезависимости
+    text_lower = text.lower()
+    
+    # Проверка запрещенных слов
+    if "спам" in text_lower or "реклама" in text_lower:
+        return False
+    
+    # Исправлено: сообщение короче 3 символов (не включая 3)
+    if len(text) < 3:
+        return False
+    
+    return True
+
+
+# ========== ТЕСТ-КЕЙСЫ ==========
+print("\n" + "=" * 60)
+print("Задание №5. Тестирование чат-фильтра")
+print("=" * 60)
+
+# 1. НОРМАЛЬНЫЕ ДАННЫЕ
+print("\n--- НОРМАЛЬНЫЕ ДАННЫЕ ---")
+test_normal = moderator("Привет, как дела?")
+print(f"Вход: 'Привет, как дела?'")
+print(f"Результат: {test_normal}")
+print(f"Ожидание: True")
+print(f"Вердикт: {'✅ ПРОЙДЕН' if test_normal == True else '❌ НЕ ПРОЙДЕН'}")
+
+# 2. ГРАНИЧНЫЕ ЗНАЧЕНИЯ
+print("\n--- ГРАНИЧНЫЕ ЗНАЧЕНИЯ ---")
+test_boundary = moderator("Эй!")  # ровно 3 символа
+print(f"Вход: 'Эй!'")
+print(f"Результат: {test_boundary}")
+print(f"Ожидание: True (3 символа - разрешено)")
+print(f"Вердикт: {'✅ ПРОЙДЕН' if test_boundary == True else '❌ НЕ ПРОЙДЕН'}")
+
+# 3. ЗАВЕДОМО ЛОЖНЫЕ ДАННЫЕ
+print("\n--- ЗАВЕДОМО ЛОЖНЫЕ ДАННЫЕ ---")
+test_false = moderator("")  # пустое сообщение
+print(f"Вход: '' (пустое сообщение)")
+print(f"Результат: {test_false}")
+print(f"Ожидание: False")
+print(f"Вердикт: {'✅ ПРОЙДЕН' if test_false == False else '❌ НЕ ПРОЙДЕН'}")
